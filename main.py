@@ -9,19 +9,7 @@ device ="cuda" if torch.cuda.is_available() else "cpu"
 
 #function for generating speech
 
-def generate_audio(text="As the train rumbled across the vast countryside, "
-"Maya sat by the window, watching the ever-changing landscape blur into "
-"streaks of green, gold, and blue. Each passing village whispered stories "
-"of lives she would never know—children running barefoot through fields, "
-"elders resting under banyan trees, and smoke curling up from small clay stoves. "
-"The wind carried the scent of damp earth and distant rain, and for a moment, "
-"time seemed to pause. She thought about how strange it was that the world could be so "
-"big and yet so intimately connected. The people she would never meet still felt familiar, "
-"like echoes of memories from another life. She sipped her tea, now lukewarm, and leaned her head "
-"against the glass, letting the rhythmic clatter of the tracks lull her into thought."
-" Somewhere ahead was her destination, a city bustling with noise and lights, but for"
-" now, in this quiet cocoon of movement and reflection, she allowed herself to simply be"
-" — just a traveler, in transit, wrapped in the gentle hum of the journey."):
+def generate_audio(text="As the train rumbled across the vast countryside, Maya sat by the window, watching the ever-changing landscape blur into streaks of green, gold, and blue."):
     # Init TTS with the target model name
     #model in english
     tts =TTS(model_name="tts_models/en/ljspeech/fast_pitch").to("cpu")
