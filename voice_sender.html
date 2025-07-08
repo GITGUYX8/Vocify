@@ -1,0 +1,60 @@
+ <!DOCTYPE html>
+<html>
+<head>
+  <title>Voice Recorder</title>
+</head>
+<body>
+  <h2>Voice Recorder</h2>
+
+  <button id="startBtn">Start Recording</button>
+  <button id="stopBtn" disabled>Stop Recording</button>
+
+  <script>
+    let recorder, stream, chunks = [];
+
+    document.getElementById('startBtn').onclick = async () => {
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        recorder = new MediaRecorder(stream);
+        chunks = [];
+
+        recorder.ondataavailable = e => chunks.push(e.data);
+
+        recorder.onstop = () => {
+          const blob = new Blob(chunks, { type: 'audio/webm' });
+          const formData = new FormData();
+          formData.append('file', blob, 'voice.webm');
+
+          fetch('https://d292ce49edb2.ngrok-free.app/upload', {
+            method: 'POST',
+            body: formData
+          })
+          .then(() => alert(" Voice uploaded successfully"))
+          .catch(err => {
+            console.error(err);
+            alert(" Upload failed");
+          });
+        };
+
+        recorder.start();
+        document.getElementById('startBtn').disabled = true;
+        document.getElementById('stopBtn').disabled = false;
+        console.log(" Recording started...");
+      } catch (err) {
+        alert(" Microphone access denied");
+        console.error(err);
+      }
+    };
+
+    document.getElementById('stopBtn').onclick = () => {
+      if (recorder && recorder.state === "recording") {
+        recorder.stop();
+        stream.getTracks().forEach(track => track.stop());
+        document.getElementById('startBtn').disabled = false;
+        document.getElementById('stopBtn').disabled = true;
+        console.log("Recording stopped and sent");
+      }
+    };
+  </script>
+</body>
+</html>
