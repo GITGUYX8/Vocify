@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Jetbot Control Panel</title>
+</head>
+<body>
+  <h1>🎛️ Jetbot Remote Control</h1>
+
+  <!-- 🎤 Voice Recorder -->
+  <h2>🎤 Record Audio</h2>
+  <button id="startBtn">Start Recording</button>
+  <button id="stopBtn" disabled>Stop & Upload</button>
+  <p id="audio-status"></p>
+  <audio id="audioPlayer" controls style="display:none;"></audio>
+
+  <!-- 📷 Camera Controls -->
+  <h2>📷 Camera Controls</h2>
+  <button onclick="sendCommand('/capture')">📸 Capture Photo</button>
+  <button onclick="sendCommand('/record')">🎥 Record Video (5s)</button>
+  <p id="cam-status"></p>
+
+  <!-- Display Results -->
+  <h3>📸 Captured Photo</h3>
+  <img id="photo" src="" width="320" alt="No photo yet" />
+
+  <h3>🎥 Last Recorded Video</h3>
+  <video id="video" width="320" controls>
+    <source id="videoSource" src="" type="video/mp4v">
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- Scripts -->
+  <script src="/static/control.js"></script>
+  <script src="/static/voice_sender.js"></script>
+</body>
+</html>
